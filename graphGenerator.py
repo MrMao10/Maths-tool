@@ -8,6 +8,11 @@ from matplotlib.ticker import PercentFormatter
 
 histogramTitle = input('Enter histogram title: ')
 xAxisLabel = input('Enter x axis label: ')
+yLabel = input('Do you require a y axis label other than "Frequency"? ')
+if yLabel == 'Yes':
+    yAxisLabel = input('Enter y axis label: ')
+else:
+    yAxisLabel = 'Frequency'
 densityCurve = input('Do you want a density plot on your histogram? ').capitalize()
 manualData = input('Do you want to enter your own data or have it generated based on your parameters?(A or B)').capitalize()
 if manualData == 'A':
@@ -27,7 +32,7 @@ else:
 
 plt.hist(data, bins='fd', edgecolor="black")
 plt.xlabel(xAxisLabel)
-plt.ylabel("Frequency")
+plt.ylabel(yAxisLabel)
 plt.title(histogramTitle)
 while True:
     hasGrid = input('Do you want your histogram to be lined? ').capitalize()
