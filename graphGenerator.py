@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
 from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
 
@@ -28,10 +29,14 @@ plt.hist(data, bins='fd', edgecolor="black")
 plt.xlabel(xAxisLabel)
 plt.ylabel("Frequency")
 plt.title(histogramTitle)
-hasGrid = input('Do you want your histogram to be lined? ').capitalize()
-if hasGrid == 'yes':
-    plt.grid()
-else:
-    pass
-
-plt.show()
+while True:
+    hasGrid = input('Do you want your histogram to be lined? ').capitalize()
+    if hasGrid == 'Yes':
+        plt.grid()
+        plt.show()
+        sys.exit()
+    elif hasGrid == 'No':
+        plt.show()
+        sys.exit()
+    else:
+        print("Not a valid option. Please type 'yes' for a gridded histogram and 'no' for a non-gridded histogram.")
