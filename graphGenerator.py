@@ -30,12 +30,10 @@ while True:
             a = (minimumData + maximumData) / 2
             data = np.random.normal(a, ((maximumData-a) + (a-minimumData)) /2, sampleSize)
         print(data)
-
         if densityCurve == 'Yes':
             sns.histplot(data, bins='fd', kde=True, color="orange")
         else:
             pass
-
         plt.hist(data, bins='fd', edgecolor="black")
         plt.xlabel(xAxisLabel)
         plt.ylabel(yAxisLabel)
@@ -70,8 +68,8 @@ while True:
         plt.scatter(xPoints, yPoints, color='blue', label='Test')
         coefficients = np.polyfit(xPoints, yPoints, 1)  # 1 means linear
         slope, intercept = coefficients
-        best_fit_line = slope * xPoints + intercept
-        plt.plot(xPoints, best_fit_line, color='red', label='Best Fit Line')
+        lineOfBestFit = slope * xPoints + intercept
+        plt.plot(xPoints, lineOfBestFit, color='red', linestyle='dashed', label='Best Fit Line')
         plt.xlabel(xAxisLabel)
         plt.ylabel(yAxisLabel)
         plt.title(scatterPlotTitle)
@@ -80,8 +78,49 @@ while True:
         plt.show()
         sys.exit()
     elif choiceMenu == 'line graph':
-        pass
+        xCoord = []
+        yCoord = []
+        numberOfPoints = int(input('Enter number of points to plot: '))
+        for i in range(numberOfPoints):
+            x, y = input(f'Enter point {i+1}, with the x and y coordinates separated with a comma: ').split(',')
+            int(x)
+            int(y)
+            xCoord.append(x)
+            yCoord.append(y)
+        xPoints = np.array(xCoord, dtype=int)
+        yPoints = np.array(yCoord, dtype=int)
+        print(xPoints, yPoints)
+        xAxisLabel = input('Enter your x axis label: ')
+        yAxisLabel = input('Enter your y axis label: ')
+        lineGraphTitle = input('Enter your line graph title: ')
+        plt.plot(xPoints, yPoints, marker='o')
+        plt.xlabel(xAxisLabel)
+        plt.ylabel(yAxisLabel)
+        plt.title(lineGraphTitle)
+        plt.grid()
+        plt.show()
+        sys.exit()        
     elif choiceMenu == 'bar chart':
-        pass
+        labels = []
+        qualitativeMeasures = int(input('Enter number of qualatative measures (labels): '))
+        for i in range(qualitativeMeasures):
+            qualitativeMeasure = input(f'Enter label {i+1}: ')
+            labels.append(qualitativeMeasure)
+        counts = []
+        for i in range(qualitativeMeasures):
+            count = int(input(f'Enter count {i+1}: '))
+            counts.append(count)
+        labels = np.array(labels, dtype=str)
+        counts = np.array(counts, dtype=int)
+        print(labels, counts)
+        xAxisLabel = input('Enter your x axis label: ')
+        yAxisLabel = input('Enter your y axis label: ')
+        barChartTitle = input('Enter your bar chart title: ')
+        plt.xlabel(xAxisLabel)
+        plt.ylabel(yAxisLabel)
+        plt.title(barChartTitle)
+        plt.bar(labels, counts)
+        plt.show()
+        sys.exit() 
     else:
         print("Not a valid option. Please pick one of the following: Histogram, scatter plot, line graph, or bar chart.")
