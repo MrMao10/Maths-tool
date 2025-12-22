@@ -4,6 +4,7 @@ import seaborn as sns
 import sys
 from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
+from lib.menuTest import menu
 
 def exitProgram():
     while True:
@@ -20,7 +21,7 @@ def exitProgram():
 
 print("Welcome to the Graph Generator!")
 while True:
-    choiceMenu = input('HISTOGRAM       SCATTER PLOT\nLINE GRAPH        BAR CHART\n').lower()
+    choiceMenu = input('HISTOGRAM       SCATTER PLOT\nLINE GRAPH        BAR CHART\n        PIE CHART        \n').lower()
     while True:
         if choiceMenu == 'histogram':
             histogramTitle = input('Enter histogram title: ')
@@ -54,11 +55,9 @@ while True:
                 if hasGrid == 'Yes':
                     plt.grid()
                     plt.show()
-                    #sys.exit()
                     break
                 elif hasGrid == 'No':
                     plt.show()
-                    #sys.exit()
                     break
                 else:
                     print("Not a valid option. Please type 'yes' for a gridded histogram and 'no' for a non-gridded histogram.")
@@ -145,5 +144,37 @@ while True:
             plt.show()
             exitProgram()
             break
+        elif choiceMenu == 'pie chart':
+            #could get user input through one prompting using the split function like earlier with
+            #scatter plot but ask user for each wedge name followed by its value, separated with a comma
+            numberOfObjects = int(input('Enter the amount of wedges in your pie (chart): '))
+            wedges = []
+            for i in range(numberOfObjects):
+                wedge = input(f'Enter wedge {i+1} label: ')
+                wedges.append(wedge)
+            values = []
+            for i in range(numberOfObjects):
+                valueOfWedge = int(input(f'Enter wedge value {i+1}: '))
+                values.append(valueOfWedge)
+            values = np.array(values, dtype=int)
+            print(wedges, values)
+            pieChartTitle = input('Enter your pie chart title: ')
+            plt.title(pieChartTitle)
+            while True:
+                legendOrLabels = input('Do you want a legend or labels on your pie chart? ')
+                if legendOrLabels == 'labels':
+                    plt.pie(values, labels=wedges, startangle=90)
+                    plt.show()
+                    break
+                elif legendOrLabels == 'legend':
+                    plt.pie(values, labels=wedges, startangle=90)
+                    plt.legend()
+                    plt.show()
+                    break
+                else:
+                    print("Not a valid option. Type labels or legend.")
+            exitProgram()
+            break
         else:
             print("Not a valid option. Please pick one of the following: Histogram, scatter plot, line graph, or bar chart.")
+            break
